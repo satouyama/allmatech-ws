@@ -1,0 +1,138 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+var app = require('../app');
+var debug = require('debug')('bilin-api:server');
+
+var http = require('http').Server(app);
+
+const io = require('socket.io')(http, {
+    pingInterval: 5000,
+    pingTimeout: 60000,
+    cookie: false,
+    transports:['websocket', 'polling']
+  });
+
+var redis = require('socket.io-redis');
+
+var jwt = require('jsonwebtoken');
+
+var nconf = require('nconf')
+var _ = require("underscore");
+
+var secret = nconf.get('secret')
+
+// Transport global var io
+app.set('io', io);
+
+io.use((socket, next) => {
+    console.log(socket.handshake.query);
+    next();
+    /*
+    if(socket.handshake.query.token == 'token'){
+        next();
+    } else {
+        if (socket.handshake.query.token) {
+            jwt.verify(socket.handshake.query.token, nconf.get('secret'), (err, data) => {
+                if (err) {
+                    console.log('auth failed');
+                    return socket.disconnect();
+                } else {
+                    return next();
+                }
+            });
+        } else {
+            console.log('auth failed 2');
+            return socket.disconnect();
+        }
+    }
+    */
+});
+
+
+
+// var global io
+global.io = io;
+
+/* Inicia os callbacks do websocket */
+require('../config/websocket')(io);
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = process.env.PORT || 3000;
+/**
+ * Create HTTP server.
+ */
+
+http.listen(port, function () {
+    console.log("Server listening on port " + port);
+});
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+}

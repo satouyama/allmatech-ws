@@ -1,0 +1,45 @@
+{
+    "development" : {
+        "username": "allmatech",
+        "password": "Villa@123",
+        "database": "villa.dev",
+        "host": "x146f9rbl7.database.windows.net",
+        "dialect": "mssql",
+        "logging" : false,
+        "operatorsAliases": false,
+        "freezeTableName": true,
+        "dialectOptions": {
+          "encrypt": true  
+        }
+    },
+    "production" : {
+        "username": "allmatech",
+        "password": "Villa@123",
+        "database": "villa.dev",
+        "host": "x146f9rbl7.database.windows.net",
+        "dialect": "mssql",
+        "logging" : false,
+        "operatorsAliases": false,
+        "freezeTableName": true,
+        "dialectOptions": {
+          "encrypt": true  
+        }
+    },
+    "appVersion" : "1.1.0",
+    "bilinVersion" : "0.10.8.debug",
+    "secret" : "45e4b255526645d0fcdzinfa56207ebc1069",
+    "facebookClientID" : "346007265753450",
+    "facebookClientSecret" : "353fc5e807eb63dddc22a4253bb04934",
+    "tokenExpirationTime" : 360000,
+    "admTokenExpirationTime" : 720000,
+    "valorRateioEntregador" : 6.00,
+    "valorRateioBillin" : 6.00,
+    "valorRateioRevendedor" : 6.00,
+    "firebaseApiKey": "AIzaSyCSLWR_wUJioiOclhxN5sYGRvjZAI3CkHI",
+    "authDomain": "bilin-b7543.firebaseapp.com",
+    "firebasedatabaseURL": "https://bilin-b7543.firebaseio.com",
+    "storageBucket": "bilin-b7543.appspot.com",
+    "messagingSenderId": "505756847661"
+    
+
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+     <h1><%=title%></h1>
+     <script src="/socket.io/socket.io.js"></script>
+ 	<script>
+  var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTMwMjg5MDE5LCJleHAiOjE1MzAzNzU0MTl9.ZNkSJwYlOK2Ha6fC1wUwnumorS3gyhxVnhmrK-Wm7Qw';
+
+ 		var io = io('https://bilin-dev.herokuapp.com?token='+token);
+
+    var socket = io;
+
+    socket.on('connect', function(){
+   var id = socket.io.engine.id; 
+     alert(id);
+
+         socket.emit('produtos', {idCidade : '5583'});
+         socket.on(id,(data)=>{
+           console.log(data);
+         })
+
+         socket.on('message', (data)=>{
+              console.log(data);
+         });
+
+         socket.emit('novoPedido', {message : 'novo pedido'});
+         socket.on('message', (data)=>{
+           console.log(data);
+         })
+   })
+
+ 	</script>
+  </body>
+</html>

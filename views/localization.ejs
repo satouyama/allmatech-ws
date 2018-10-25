@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title><%=title%></title>
+    </head>
+    <style>
+        body{
+            padding: 20px;
+        }
+        #debug-console{
+            width: 100%;
+            height: 500px;
+            border: 1px solid grey;
+            border-radius: 5px;
+            display: block;
+            overflow: auto;
+            padding: 10px;
+        }
+        span{
+            display: block;
+            width: 100%;
+            margin: 5px 0px 5px 0px;
+        }
+    </style>
+<body>
+    <h1><%=title%></h1>
+    <div id="debug-console">
+
+    </div>
+    <input type="checkbox" id="disable-scroll" checked>Habilitar Rolagem<br>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var io = io('https://bilin-dev.herokuapp.com');
+
+        var socket = io;
+
+        function formatarDate() {
+            let date = new Date();
+            return date.getDay() + "/" + date.getMonth() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+        }
+
+        function scroll() {
+            if (document.getElementById("disable-scroll").checked) {
+                var objDiv = document.getElementById("debug-console");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            }
+        }
+
+        socket.on('connect', function(){
+            var id = socket.io.engine.id;
+            console.log(id);
+
+            socket.on(id,(data)=>{
+                console.log(data);
+            })
+
+            socket.on('message', (data)=>{
+                console.log(data);
+            });
+
+            socket.emit('join-location-room', { id : 0, nome: 'DebugConsole', role: 'Admin'});
+
+            socket.on('userJoined', (data)=>{
+                document.getElementById("debug-console").innerHTML += "<span>[" + formatarDate() + "] " +
+                    data.userName + " se conectou  (" + data.userName +"/"+ data.idUser + "/" + data.userRole + "/" + data.address +
+                    ")</span>";
+                scroll();
+            });
+
+            socket.on('userDisconnected', (data)=>{
+                document.getElementById("debug-console").innerHTML += "<span>[" + formatarDate() + "] " + data.userName + " foi desconectado do servidor [" + data.disconnection_motive + "] ("+
+                    data.userName +"/"+ data.idUser + "/" + data.userRole + "/" + data.address + "/" + data.createdAt +
+                    ") </span>";
+                scroll();
+            });
+
+            socket.on('userDisconnectedFromRoom', (data)=>{
+                document.getElementById("debug-console").innerHTML += "<span>[" + formatarDate() + "] " + data.userName + " saiu da sala ("+
+                    data.userName +"/"+ data.idUser + "/" + data.userRole + "/" + data.address + "/" + data.createdAt +
+                    ") </span>";
+                scroll();
+            });
+
+            socket.on('location', (data)=>{
+                document.getElementById("debug-console").innerHTML += "<span>[" +formatarDate() + "]  [<u>" + data.nome +"/"+ data.idEntregador + "</u>]  Localização enviada: " +
+                    "lat " + data.latitude +
+                    " long " + data.longitude +
+                    "</span>";
+                scroll();
+            });
+
+
+            socket.on('debug', (data)=>{
+                document.getElementById("debug-console").innerHTML += "<span>[" + formatarDate() + "] Debug: " +
+                    JSON.stringify(data) +
+                    "</span>";
+                scroll();
+            });
+        })
+
+    </script>
+</body>
+</html>
