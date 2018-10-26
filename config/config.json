@@ -1,9 +1,9 @@
 {
     "development" : {
-        "username": "",
-        "password": "",
-        "database": "",
-        "host": "",
+        "username": "allmatech",
+        "password": "Villa@123",
+        "database": "villa.dev",
+        "host": "x146f9rbl7.database.windows.net",
         "dialect": "mssql",
         "logging" : false,
         "operatorsAliases": false,
@@ -13,10 +13,10 @@
         }
     },
     "production" : {
-        "username": "",
-        "password": "",
-        "database": "",
-        "host": "",
+        "username": "allmatech",
+        "password": "Aragorn@123",
+        "database": "villa",
+        "host": "vzrl4ocle6.database.windows.net",
         "dialect": "mssql",
         "logging" : false,
         "operatorsAliases": false,
