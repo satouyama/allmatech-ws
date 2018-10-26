@@ -1,9 +1,9 @@
 {
     "development" : {
-        "username": "allmatech",
-        "password": "Villa@123",
-        "database": "villa.dev",
-        "host": "x146f9rbl7.database.windows.net",
+        "username": "",
+        "password": "",
+        "database": "",
+        "host": "",
         "dialect": "mssql",
         "logging" : false,
         "operatorsAliases": false,
@@ -13,10 +13,10 @@
         }
     },
     "production" : {
-        "username": "allmatech",
-        "password": "Villa@123",
-        "database": "villa.dev",
-        "host": "x146f9rbl7.database.windows.net",
+        "username": "",
+        "password": "",
+        "database": "",
+        "host": "",
         "dialect": "mssql",
         "logging" : false,
         "operatorsAliases": false,
@@ -36,10 +36,7 @@
     "valorRateioBillin" : 6.00,
     "valorRateioRevendedor" : 6.00,
     "firebaseApiKey": "AIzaSyCSLWR_wUJioiOclhxN5sYGRvjZAI3CkHI",
-    "authDomain": "bilin-b7543.firebaseapp.com",
-    "firebasedatabaseURL": "https://bilin-b7543.firebaseio.com",
-    "storageBucket": "bilin-b7543.appspot.com",
-    "messagingSenderId": "505756847661"
+    "authDomain": "bilin-b7543.firebaseapp.com"
     
 
 }
